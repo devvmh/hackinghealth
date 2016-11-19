@@ -24,7 +24,10 @@ class VideosController < ApplicationController
     @video = Video.new(video_params)
 
     if @video.save
-      redirect_to @video, notice: 'Video was successfully created.'
+      respond_to do |format|
+        format.html { redirect_to @video, notice: 'Video was successfully created.' }
+        format.json { render json: @video }
+      end
     else
       render :new
     end
@@ -46,13 +49,17 @@ class VideosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_video
-      @video = Video.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def video_params
-      params.fetch(:video, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_video
+    @video = Video.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def video_params
+    params.fetch(:video, {
+      :name,
+      :file
+    })
+  end
 end
