@@ -16,7 +16,7 @@ export default class RecordingView extends React.Component {
   }
 
   render() {
-    const { name } = this.props;
+    const { name } = this.state;
     return (
       <div className="container">
         <h3>
@@ -30,7 +30,7 @@ export default class RecordingView extends React.Component {
           <input
             type="text"
             value={name}
-            onChange={e => this.updateName(e)}
+            onChange={e => this.updateName(e.target.value)}
           />
         </form>
       </div>
