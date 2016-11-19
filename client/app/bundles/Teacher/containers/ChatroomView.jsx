@@ -11,19 +11,32 @@ class ChatroomView extends React.Component {
 
   render() {
     const { name, visible } = this.props;
+
     return (
-      <div className="container" style={{ display: visible ? 'block' : 'none' }}>
+      <div className="container chatroom" style={{ display: visible ? 'block' : 'none' }}>
         <h3>
           Hello, {name}!
         </h3>
         <hr />
-        <Chatroom recorder={<VideoRecorder updateVideoList={this.props.updateVideoList} />} />
+        <div className="left-col">
+          <div className="messages" />
+          <div className="send-text" />
+        </div>
+        <div className="right-col">
+          <VideoRecorder name={this.props.name}
+            signalmasterUrl={this.props.signalmasterUrl}
+            updateVideoList={this.props.updateVideoList}
+          />
+          <div className="participants" />
+        </div>
       </div>
     );
   }
 }
 
 ChatroomView.propTypes = {
+  name: PropTypes.string,
+  signalmasterUrl: PropTypes.string,
   updateVideoList: PropTypes.func.isRequired
 };
 

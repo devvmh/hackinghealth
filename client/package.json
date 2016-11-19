@@ -31,6 +31,8 @@
     "react-dom": "^0.14.8 || ^15.0.0",
     "react-dropzone": "^3.7.3",
     "react-on-rails": "6.1.2",
+    "react-simplewebrtc": "0.0.18",
+    "simplewebrtc": "^2.2.1",
     "webpack": "^1.12.14"
   },
   "devDependencies": {}

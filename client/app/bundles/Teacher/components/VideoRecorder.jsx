@@ -1,5 +1,8 @@
 import React, { PropTypes } from 'react';
 import Dropzone from 'react-dropzone';
+import SimpleWebRTC from 'simplewebrtc'
+//import WebRtc from 'react-simplewebrtc'
+import WebRtc from './WebRtc'
 
 class VideoRecorder extends React.Component {
   constructor(props) {
@@ -42,21 +45,26 @@ class VideoRecorder extends React.Component {
   }
 
   render() {
-    if (this.state.currentlyUploading === true) {
-      return <div className="upload-video disabled">
-        <div className="upload-video-text">Video is uploading...</div>
-      </div>
-    } else {
-      return <div className="upload-video">
-        <Dropzone className="dropzone" onDrop={this.onDrop}>
-          <div className="upload-video-text">Click here to upload a video</div>
-        </Dropzone>
-      </div>
-    }
+    return <div>
+      <WebRtc options={{ roomname: this.props.roomname, signalmasterUrl: this.props.signalmasterUrl }} />
+      {this.state.currentlyUploading === true ? (
+        <div className="upload-video disabled">
+          <div className="upload-video-text">Video is uploading...</div>
+        </div>
+      ) : (
+        <div className="upload-video">
+          <Dropzone className="dropzone" onDrop={this.onDrop}>
+            <div className="upload-video-text">Click here to upload a video</div>
+          </Dropzone>
+        </div>
+      )}
+    </div>
   }
 }
 
 VideoRecorder.propTypes = {
+  roomname: PropTypes.string,
+  signalmasterUrl: PropTypes.string,
   updateVideoList: PropTypes.func.isRequired
 };
 

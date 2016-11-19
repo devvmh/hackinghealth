@@ -1,0 +1,19 @@
+{
+  "name": "signal-server",
+  "version": "0.0.1",
+  "engines": {
+    "node": "5.10.0",
+    "npm": "3.5.0"
+  },
+  "scripts": {
+    "run": "node index.js"
+  },
+  "cacheDirectories": [
+    "node_modules"
+  ],
+  "dependencies": {
+    "redux": "^3.6.0",
+    "socket.io": "^1.5.1"
+  },
+  "devDependencies": {}
+}
