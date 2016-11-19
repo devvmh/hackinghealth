@@ -33,18 +33,18 @@ class TeacherView extends Component {
 
   render() {
     return <div>
-      <div class="tab-container">
-        <div class="tab tab-recording-view"
+      <div className="tab-container">
+        <div className="tab tab-recording-view"
           onClick={e => this.setState({ tab: RECORDING_VIEW })}
         >
           Record a Video
         </div>
-        <div class="tab tab-chatroom-view"
+        <div className="tab tab-chatroom-view"
           onClick={e => this.setState({ tab: CHATROOM_VIEW })}
         >
           Chat with students
         </div>
-        <div class="tab tab-archive-view"
+        <div className="tab tab-archive-view"
           onClick={e => this.setState({ tab: ARCHIVE_VIEW })}
         >
           See your past videos

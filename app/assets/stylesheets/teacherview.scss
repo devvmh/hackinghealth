@@ -1,0 +1,18 @@
+.tab-container {
+  padding-bottom: 1em;
+
+  .tab {
+    cursor: pointer;
+    float: left;
+    margin-right: 1em;
+
+    &:hover {
+      font-weight: 600;
+      text-decoration: underline;
+    }
+  }
+}
+
+.container {
+  clear: both;
+}
