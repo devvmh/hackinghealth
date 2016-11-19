@@ -4,10 +4,18 @@ class VideosController < ApplicationController
   # GET /videos
   def index
     @videos = Video.all
+    respond_to do |format|
+      format.html
+      format.json { render json: @videos || [] }
+    end
   end
 
   # GET /videos/1
   def show
+    respond_to do |format|
+      format.html
+      format.json { render json: @video }
+    end
   end
 
   # GET /videos/new
