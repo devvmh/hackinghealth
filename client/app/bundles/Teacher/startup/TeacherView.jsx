@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import ReactOnRails from 'react-on-rails';
 
-import RecordingView from '../containers/RecordingView';
 import ChatroomView from '../containers/ChatroomView';
 import ArchiveView from '../containers/ArchiveView';
 
-const RECORDING_VIEW = 1
-const CHATROOM_VIEW = 2
-const ARCHIVE_VIEW = 3
+const CHATROOM_VIEW = 1
+const ARCHIVE_VIEW = 2
 
 class TeacherView extends Component {
   constructor(props) {
@@ -57,15 +55,10 @@ class TeacherView extends Component {
 
     return <div>
       <div className="tab-container">
-        <div className="tab tab-recording-view"
-          onClick={e => this.setState({ tab: RECORDING_VIEW })}
-        >
-          Record a Video
-        </div>
         <div className="tab tab-chatroom-view"
           onClick={e => this.setState({ tab: CHATROOM_VIEW })}
         >
-          Chat with students
+          Create new videos
         </div>
         <div className="tab tab-archive-view"
           onClick={e => this.setState({ tab: ARCHIVE_VIEW })}
@@ -73,8 +66,7 @@ class TeacherView extends Component {
           See your past videos
         </div>
       </div>
-      <RecordingView {...tabProps} updateVideoList={this.fetchVideos} visible={tab === RECORDING_VIEW} />
-      <ChatroomView {...tabProps} visible={tab === CHATROOM_VIEW} />
+      <ChatroomView {...tabProps} updateVideoList={this.fetchVideos} visible={tab === CHATROOM_VIEW} />
       <ArchiveView {...tabProps} videos={this.state.videos} visible={tab === ARCHIVE_VIEW} />
     </div>
   }
