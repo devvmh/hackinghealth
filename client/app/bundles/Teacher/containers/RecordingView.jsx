@@ -1,6 +1,13 @@
 import React, { PropTypes } from 'react';
+import Dropzone from 'react-dropzone';
 
 class RecordingView extends React.Component {
+  onDrop = (acceptedFiles, rejectedFiles) => {
+    console.log('Accepted files: ', acceptedFiles);
+    console.log('Rejected files: ', rejectedFiles);
+    debugger
+  }
+
   render() {
     const { name } = this.props;
     return (
@@ -18,6 +25,11 @@ class RecordingView extends React.Component {
             value={name}
             onChange={e => this.props.updateName(e.target.value)}
           />
+        </div>
+        <div className="upload-video">
+          <Dropzone className="dropzone" onDrop={this.onDrop}>
+            <div className="upload-video-text">Video uploader</div>
+          </Dropzone>
         </div>
       </div>
     );
