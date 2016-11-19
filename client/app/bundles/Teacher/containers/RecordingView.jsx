@@ -2,6 +2,13 @@ import React, { PropTypes } from 'react';
 import Dropzone from 'react-dropzone';
 
 class RecordingView extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      currentlyUploading: false
+    }
+  }
+
   onDrop = (acceptedFiles, rejectedFiles) => {
     if (rejectedFiles.length > 0) {
       console.error('rejected files:', rejectedFiles)
@@ -9,6 +16,8 @@ class RecordingView extends React.Component {
 
     const formData = new FormData();
     formData.append('video[file]', acceptedFiles[0])
+
+    this.setState({ currentlyUploading: true })
 
     fetch('/videos', {
       method: 'POST',
@@ -27,8 +36,10 @@ class RecordingView extends React.Component {
       console.log("success!!!!!")
       console.log(payload)
       this.props.updateVideoList()
+      this.setState({ currentlyUploading: false })
     }).catch(error => {
       console.error(error)
+      this.setState({ currentlyUploading: false })
     })
   }
 
@@ -40,11 +51,17 @@ class RecordingView extends React.Component {
           Hello, {name}!
         </h3>
         <hr />
-        <div className="upload-video">
-          <Dropzone className="dropzone" onDrop={this.onDrop}>
-            <div className="upload-video-text">Video uploader</div>
-          </Dropzone>
-        </div>
+        {this.state.currentlyUploading === true ? (
+          <div className="upload-video disabled">
+            <div className="upload-video-text">Video is uploading...</div>
+          </div>
+        ) : (
+          <div className="upload-video">
+            <Dropzone className="dropzone" onDrop={this.onDrop}>
+              <div className="upload-video-text">Click here to upload a video</div>
+            </Dropzone>
+          </div>
+        )}
       </div>
     );
   }

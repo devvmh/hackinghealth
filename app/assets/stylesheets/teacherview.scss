@@ -23,4 +23,18 @@
   vertical-align: middle;;
   margin: 1em 0;
   border: 1px solid black;
+
+  &.disabled {
+    background-color: grey;
+  }
+
+  .upload-video-text {
+    margin: 0 auto;
+    margin-top: 4.25em;
+  }
+}
+
+.video {
+  float: left;
+  padding: 1em;
 }
