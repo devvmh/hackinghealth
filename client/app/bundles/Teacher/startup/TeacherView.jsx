@@ -23,25 +23,13 @@ class TeacherView extends Component {
     this.setState({ name });
   }
 
-  renderTab = () => {
-    const props = Object.assign({}, this.props, {
+  render() {
+    const tabProps = Object.assign({}, this.props, {
       updateName: this.updateName,
       name: this.state.name
     })
+    const { tab } = this.state
 
-    switch(this.state.tab) {
-      case RECORDING_VIEW:
-        return <RecordingView {...props} />
-      case CHATROOM_VIEW:
-        return <ChatroomView {...props} />
-      case ARCHIVE_VIEW:
-        return <ArchiveView {...props} />
-      default:
-        return <div>Something went wrong</div>
-    }
-  }
-
-  render() {
     return <div>
       <div className="tab-container">
         <div className="tab tab-recording-view"
@@ -60,7 +48,9 @@ class TeacherView extends Component {
           See your past videos
         </div>
       </div>
-      {this.renderTab()}
+      <RecordingView {...tabProps} visible={tab === RECORDING_VIEW} />
+      <ChatroomView {...tabProps} visible={tab === CHATROOM_VIEW} />
+      <ArchiveView {...tabProps} visible={tab === ARCHIVE_VIEW} />
     </div>
   }
 }

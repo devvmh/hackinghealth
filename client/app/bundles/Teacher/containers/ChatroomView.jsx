@@ -2,9 +2,9 @@ import React, { PropTypes } from 'react';
 
 class ChatroomView extends React.Component {
   render() {
-    const { name } = this.props;
+    const { name, visible } = this.props;
     return (
-      <div className="container">
+      <div className="container" style={{ display: visible ? 'block' : 'none' }}>
         <h3>
           {name}'s Chatroom
         </h3>
