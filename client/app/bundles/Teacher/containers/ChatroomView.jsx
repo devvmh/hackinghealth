@@ -1,6 +1,5 @@
 import React, { PropTypes } from 'react';
 import VideoRecorder from '../components/VideoRecorder'
-import Chatroom from './Chatroom'
 
 class ChatroomView extends React.Component {
   constructor(props) {

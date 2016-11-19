@@ -3,7 +3,7 @@ const stunservers = [{'url': 'stun:stun.l.google.com:19302'}]
 const { createStore } = require('redux')
 
 const reducer = (state = { connectedPeople: {}, liveMaps: {} }, action) => {
-  switch (type) {
+  switch (action.type) {
     case 'JOIN_MAP':
       return Object.assign({}, state, {
       })

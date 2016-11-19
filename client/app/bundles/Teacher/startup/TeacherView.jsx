@@ -7,6 +7,8 @@ import ArchiveView from '../containers/ArchiveView';
 const CHATROOM_VIEW = 1
 const ARCHIVE_VIEW = 2
 
+const SIGNALMASTER_URL = 'http://localhost:5000'
+
 class TeacherView extends Component {
   constructor(props) {
     super(props)
@@ -66,7 +68,7 @@ class TeacherView extends Component {
           See your past videos
         </div>
       </div>
-      <ChatroomView {...tabProps} updateVideoList={this.fetchVideos} visible={tab === CHATROOM_VIEW} />
+      <ChatroomView {...tabProps} signalmasterUrl={SIGNALMASTER_URL} updateVideoList={this.fetchVideos} visible={tab === CHATROOM_VIEW} />
       <ArchiveView {...tabProps} videos={this.state.videos} visible={tab === ARCHIVE_VIEW} />
     </div>
   }

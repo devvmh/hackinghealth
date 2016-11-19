@@ -1,4 +1,5 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 
 class WebRtc extends React.Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class WebRtc extends React.Component {
       localVideoEl: ReactDOM.findDOMNode(this.refs.local),
       remoteVideosEl: "",
       autoRequestMedia: true,
-      url : this.props.obj.signalmasterUrl
+      url : this.props.options.signalmasterUrl
     });
 
     console.log("webrtc component mounted");
@@ -51,7 +52,7 @@ class WebRtc extends React.Component {
   }
 
   readyToCall() {
-    return this.webrtc.joinRoom(this.props.obj.roomname);
+    return this.webrtc.joinRoom(this.props.options.roomname);
   }
 
   connect() {
@@ -75,3 +76,5 @@ class WebRtc extends React.Component {
     </div>
   }
 }
+
+export default WebRtc
