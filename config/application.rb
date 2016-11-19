@@ -13,6 +13,8 @@ module Hackinghealth
     # -- all .rb files in that directory are automatically loaded.
     config.paperclip_defaults = {
       storage: :s3,
+      url: ':s3_domain_url',
+      path: '/:class/:id_:basename.:style.:extension',
       s3_protocol: 'https',
       s3_region: ENV['AWS_REGION'],
       s3_credentials: {
