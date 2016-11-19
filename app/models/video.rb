@@ -3,7 +3,7 @@ class Video < ApplicationRecord
   has_attached_file :file,
     styles: {
       thumb: {
-        geometry: '100x100#',
+        geometry: '100x100!',
         :format => 'jpg'
       }
     },

@@ -15,8 +15,33 @@ class TeacherView extends Component {
 
     this.state = {
       tab: props.initialTab,
-      name: props.name
+      name: props.name,
+      videos: []
     }
+  }
+
+  fetchVideosTimeoutId = null
+  fetchVideos = () => {
+    fetch('/videos.json', {
+      credentials: 'include'
+    }).then(response => {
+      if (!response.ok) throw response
+      return response.json()
+    }).then(payload => {
+      this.setState({ videos: payload })
+      this.fetchVideosTimeoutId = window.setTimeout(() => this.fetchVideos(), 60 * 1000) // 1 minute
+    }).catch(error => {
+      console.error(error)
+      this.fetchVideosTimeoutId = window.setTimeout(() => this.fetchVideos(), 5 * 1000) // 5 seconds
+    })
+  }
+
+  componentDidMount = () => {
+    this.fetchVideos()
+  }
+
+  componentWillUnmount = () => {
+    window.clearTimeout(this.fetchVideosTimeoutId)
   }
 
   updateName = name => {
@@ -48,9 +73,9 @@ class TeacherView extends Component {
           See your past videos
         </div>
       </div>
-      <RecordingView {...tabProps} visible={tab === RECORDING_VIEW} />
+      <RecordingView {...tabProps} updateVideoList={this.fetchVideos} visible={tab === RECORDING_VIEW} />
       <ChatroomView {...tabProps} visible={tab === CHATROOM_VIEW} />
-      <ArchiveView {...tabProps} visible={tab === ARCHIVE_VIEW} />
+      <ArchiveView {...tabProps} videos={this.state.videos} visible={tab === ARCHIVE_VIEW} />
     </div>
   }
 }
