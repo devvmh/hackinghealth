@@ -13,3 +13,6 @@ cd hackinghealth
 gem install bundler
 bundle install
 npm install
+
+# start servers
+foreman start -f Procfile.dev
