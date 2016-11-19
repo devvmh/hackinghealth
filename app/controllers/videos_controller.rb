@@ -22,6 +22,7 @@ class VideosController < ApplicationController
   # POST /videos
   def create
     @video = Video.new(video_params)
+    binding.pry
 
     if @video.save
       respond_to do |format|
@@ -57,9 +58,6 @@ class VideosController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def video_params
-    params.fetch(:video, {
-      :name,
-      :file
-    })
+    params.fetch(:video, {}).permit(:name, :file)
   end
 end
