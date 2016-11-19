@@ -5,10 +5,11 @@ rvm install ruby-2.3.2
 
 # install homebrew + dependencies
 /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-brew install node ffmpeg
+brew install node ffmpeg imagemagick
 
 # install app
 git clone https://github.com/devvmh/hackinghealth.git
 cd hackinghealth
+gem install bundler
 bundle install
 npm install
