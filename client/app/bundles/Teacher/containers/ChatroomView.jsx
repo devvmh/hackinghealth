@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-export default class ChatroomView extends React.Component {
+class ChatroomView extends React.Component {
   render() {
     const { name } = this.props;
     return (
@@ -18,3 +18,5 @@ export default class ChatroomView extends React.Component {
 ChatroomView.propTypes = {
   name: PropTypes.string.isRequired
 }
+
+export default ChatroomView

@@ -1,39 +1,31 @@
 import React, { PropTypes } from 'react';
 
-export default class RecordingView extends React.Component {
-  static propTypes = {
-    name: PropTypes.string.isRequired, // this is passed from the Rails view
-  };
-
-  constructor(props, context) {
-    super(props, context);
-
-    this.state = { name: this.props.name };
-  }
-
-  updateName(name) {
-    this.setState({ name });
-  }
-
+class RecordingView extends React.Component {
   render() {
-    const { name } = this.state;
+    const { name } = this.props;
     return (
       <div className="container">
         <h3>
           Hello, {name}!
         </h3>
         <hr />
-        <form className="form-horizontal">
+        <div className="form-horizontal">
           <label>
             Say hello to:
           </label>
           <input
             type="text"
             value={name}
-            onChange={e => this.updateName(e.target.value)}
+            onChange={e => this.props.updateName(e.target.value)}
           />
-        </form>
+        </div>
       </div>
     );
   }
 }
+
+RecordingView.propTypes = {
+  name: PropTypes.string.isRequired, // this is passed from the Rails view
+};
+
+export default RecordingView

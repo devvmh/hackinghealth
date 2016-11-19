@@ -14,18 +14,28 @@ class TeacherView extends Component {
     super(props)
 
     this.state = {
-      tab: props.initialTab
+      tab: props.initialTab,
+      name: props.name
     }
   }
 
+  updateName = name => {
+    this.setState({ name });
+  }
+
   renderTab = () => {
+    const props = Object.assign({}, this.props, {
+      updateName: this.updateName,
+      name: this.state.name
+    })
+
     switch(this.state.tab) {
       case RECORDING_VIEW:
-        return <RecordingView {...this.props} />
+        return <RecordingView {...props} />
       case CHATROOM_VIEW:
-        return <ChatroomView {...this.props} />
+        return <ChatroomView {...props} />
       case ARCHIVE_VIEW:
-        return <ArchiveView {...this.props} />
+        return <ArchiveView {...props} />
       default:
         return <div>Something went wrong</div>
     }

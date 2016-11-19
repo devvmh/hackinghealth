@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-export default class ArchiveView extends React.Component {
+class ArchiveView extends React.Component {
   render() {
     const { name } = this.props;
     return (
@@ -18,3 +18,5 @@ export default class ArchiveView extends React.Component {
 ArchiveView.propTypes = {
   name: PropTypes.string.isRequired
 };
+
+export default ArchiveView
