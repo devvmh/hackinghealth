@@ -6,6 +6,8 @@ gem 'puma'
 
 gem 'bcrypt'
 gem 'jquery-rails'
+gem 'paperclip'
+gem 'paperclip-av-transcoder'
 gem 'react_on_rails'
 gem 'redis'
 gem 'sass-rails'
