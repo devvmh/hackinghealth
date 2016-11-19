@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 import Video from '../components/Video'
 
 class ArchiveView extends React.Component {
-
   render() {
     const { name, visible } = this.props;
 
