@@ -111,6 +111,7 @@ class ChatroomView extends React.Component {
           id="localVideo"
           ref="local"
         />
+        <div className="grey-background" />
         {this.state.currentlyRecording ? (
           <div className="record record-stop" onClick={this.stopRecording}>
             <img alt="Stop Recording" src={this.props.assets['stop.svg']} />

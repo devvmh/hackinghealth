@@ -39,13 +39,25 @@ body {
   $remote_video_padding: 2em;
   $record_button_size: 6em;
   $remote_video_size: 12em;
+  $record_button_horiz_padding: 2em + ($remote_video_size - $record_button_size) / 2;
+
+  .grey-background {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: $remote_video_padding + $remote_video_size + $remote_video_padding;
+    height: 100%;
+    /* background-image: url(<%= asset_path('concrete.png') %>); */
+    background-color: black;
+    opacity: 0.2;
+  }
 
   .record {
     cursor: pointer;
     display: inline-block;
     position: absolute;
     top: $remote_video_padding;
-    right: $remote_video_padding;
+    right: $record_button_horiz_padding - 0.5em; /* hack because image looks weird otherwise */
     height: $record_button_size;
     width: $record_button_size;
   }
@@ -65,6 +77,8 @@ body {
       video {
         max-width: $remote_video_size !important;
         max-height: $remote_video_size !important;
+        width: $remote_video_size;
+        height: $remote_video_size;
       }
     }
   }
