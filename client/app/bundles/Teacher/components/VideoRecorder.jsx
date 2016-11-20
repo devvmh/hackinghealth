@@ -2,13 +2,13 @@ import React, { PropTypes } from 'react';
 import Dropzone from 'react-dropzone';
 import SimpleWebRTC from 'simplewebrtc'
 import WebRtc from './WebRtc'
-//import WebRtc from 'react-simplewebrtc'
 
 class VideoRecorder extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentlyUploading: false
+      currentlyUploading: false,
+      currentlyRecording: false
     }
   }
 
@@ -44,9 +44,15 @@ class VideoRecorder extends React.Component {
     })
   }
 
+  updateIsRecording(newval) {
+    this.setState({ currentlyRecording: !!newval })
+  }
+
   render() {
     return <div>
       <WebRtc updateVideoList={this.props.updateVideoList}
+        updateCurrentlyRecording={this.updateCurrentlyRecording}
+        currentlyRecording={this.currentlyRecording}
         options={{ roomname: this.props.roomname, signalmasterUrl: this.props.signalmasterUrl }}
       />
       {this.state.currentlyUploading === true ? (

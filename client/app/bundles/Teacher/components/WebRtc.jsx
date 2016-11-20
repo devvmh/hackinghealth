@@ -47,13 +47,18 @@ class WebRtc extends React.Component {
     console.log("joining room:", this.props.options.roomname)
     window.rtc_ref = this.webrtc;
     window.local_recorder = new window.MediaRecorder(window.rtc_ref.webrtc.localStreams[0])
+    this.chunks = []
     window.local_recorder.ondataavailable = event => {
-      const blob = event.data
+      this.chunks.push(event.data)
+    }
+    window.local_recorder.onstop = event => {
+      const blob = new Blob(this.chunks, { 'type' : 'video/webm' });
+      this.chunks = []
       blob.lastModifiedDate = new Date()
       blob.name = 'recording.webm'
 
       const formData = new FormData();
-      formData.append('video[file]', event.data)
+      formData.append('video[file]', blob)
 
       fetch('/videos', {
         method: 'POST',
@@ -87,10 +92,12 @@ class WebRtc extends React.Component {
 
   startRecording = () => {
     window.local_recorder.start()
+    this.props.updateCurrentlyRecording(true)
   }
 
   stopRecording = () => {
     window.local_recorder.stop()
+    this.props.updateCurrentlyRecording(false)
   }
 
   render() {
