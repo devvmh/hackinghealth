@@ -54,6 +54,8 @@ class TeacherView extends Component {
     const { tab } = this.state
 
     return <div>
+      <ChatroomView {...tabProps} signalmasterUrl={this.props.signalmasterUrl} updateVideoList={this.fetchVideos} visible={tab === CHATROOM_VIEW} />
+      <ArchiveView {...tabProps} videos={this.state.videos} visible={tab === ARCHIVE_VIEW} />
       <div className="tab-container">
         <div className="tab tab-chatroom-view"
           onClick={e => this.setState({ tab: CHATROOM_VIEW })}
@@ -66,8 +68,6 @@ class TeacherView extends Component {
           See your past videos
         </div>
       </div>
-      <ChatroomView {...tabProps} signalmasterUrl={this.props.signalmasterUrl} updateVideoList={this.fetchVideos} visible={tab === CHATROOM_VIEW} />
-      <ArchiveView {...tabProps} videos={this.state.videos} visible={tab === ARCHIVE_VIEW} />
     </div>
   }
 }
