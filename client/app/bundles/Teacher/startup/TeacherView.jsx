@@ -27,10 +27,10 @@ class TeacherView extends Component {
       return response.json()
     }).then(payload => {
       this.setState({ videos: payload })
-      this.fetchVideosTimeoutId = window.setTimeout(() => this.fetchVideos(), 60 * 1000) // 1 minute
+      this.fetchVideosTimeoutId = window.setTimeout(() => this.fetchVideos(), 20 * 60 * 1000) // 20 minutes
     }).catch(error => {
       console.error(error)
-      this.fetchVideosTimeoutId = window.setTimeout(() => this.fetchVideos(), 5 * 1000) // 5 seconds
+      this.fetchVideosTimeoutId = window.setTimeout(() => this.fetchVideos(), 60 * 1000) // 1 minute
     })
   }
 
