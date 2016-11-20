@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import Dropzone from 'react-dropzone';
 import SimpleWebRTC from 'simplewebrtc'
-//import WebRtc from './WebRtc'
-import WebRtc from 'react-simplewebrtc'
+import WebRtc from './WebRtc'
+//import WebRtc from 'react-simplewebrtc'
 
 class VideoRecorder extends React.Component {
   constructor(props) {
