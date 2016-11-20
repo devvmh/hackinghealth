@@ -9,13 +9,13 @@ default: &default
 
 development:
   <<: *default
-  database: <%= ENV.fetch('DB_NAME', 'hackinghealth_development') %>
+  database: hackinghealth_development
 
 production:
   <<: *default
-  database: <%= ENV.fetch('DB_NAME', 'hackinghealth_production') %>
+  database: hackinghealth_production
 
 test:
   <<: *default
-  database: <%= ENV.fetch('DB_NAME', 'hackinghealth_test') %>
+  database: hackinghealth_test
 
