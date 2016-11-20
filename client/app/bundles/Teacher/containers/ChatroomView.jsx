@@ -42,7 +42,7 @@ class ChatroomView extends React.Component {
       };
       console.log(container);
       remotes.appendChild(container);
-      $(container).append(`<p>${this.names[this.nameIndex]}</p>`)
+      $(container).append(`<div class="student-name">${this.names[this.nameIndex]}</div>`)
       this.nameIndex += 1
     }
   }
