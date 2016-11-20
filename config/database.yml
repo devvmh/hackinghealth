@@ -9,7 +9,7 @@ development:
 
 production:
   <<: *default
-  database: hacknighealth_production
+  database: hackinghealth_production
 
 test:
   <<: *default
