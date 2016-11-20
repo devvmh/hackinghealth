@@ -111,6 +111,7 @@ class ChatroomView extends React.Component {
   render() {
     return (
       <div className="container chatroom" style={{ display: this.props.visible ? 'block' : 'none' }}>
+        <img src={this.props.assets['Louise.jpg']} className="louise" />
         <video className="local"
           id="localVideo"
           ref="local"
