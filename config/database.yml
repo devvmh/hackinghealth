@@ -1,5 +1,5 @@
 default: &default
-  adapter: ENV['DB']
+  adapter: <%= ENV['DB'] %>
   pool: 5
   timeout: 5000
 
