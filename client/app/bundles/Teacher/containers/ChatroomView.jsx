@@ -22,7 +22,7 @@ class ChatroomView extends React.Component {
           <div className="send-text" />
         </div>
         <div className="right-col">
-          <VideoRecorder name={this.props.name}
+          <VideoRecorder roomname={this.props.name}
             signalmasterUrl={this.props.signalmasterUrl}
             updateVideoList={this.props.updateVideoList}
           />
