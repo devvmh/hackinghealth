@@ -25,6 +25,8 @@ class ChatroomView extends React.Component {
     this.webrtc.on('readyToCall', this.readyToCall);
   }
 
+  names = ['Alex', 'Sam', 'Jamie', 'Taylor']
+  nameIndex = 0
   addVideo = (video, peer) => {
     console.log('video added', peer);
     var remotes = ReactDOM.findDOMNode(this.refs.remotes);
@@ -40,6 +42,8 @@ class ChatroomView extends React.Component {
       };
       console.log(container);
       remotes.appendChild(container);
+      $(container).append(`<p>${this.names[this.nameIndex]}</p>`)
+      this.nameIndex += 1
     }
   }
 
@@ -49,6 +53,7 @@ class ChatroomView extends React.Component {
     var el = document.getElementById(peer ? 'container_' + this.webrtc.getDomId(peer) : 'localScreenContainer');
     if (remotes && el) {
       remotes.removeChild(el);
+      this.nameIndex -= 1
     }
   }
 
