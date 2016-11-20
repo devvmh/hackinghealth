@@ -13,17 +13,18 @@ class WebRtc extends React.Component {
     this.webrtc = new SimpleWebRTC({
       localVideoEl: ReactDOM.findDOMNode(this.refs.local),
       remoteVideosEl: "",
-      autoRequestMedia: true,
-      url : this.props.options.signalmasterUrl
+      //url : this.props.options.signalmasterUrl
+      autoRequestMedia: true
     });
 
     console.log("webrtc component mounted");
     this.webrtc.on('JOIN_CALL', this.addVideo);
     this.webrtc.on('LEAVE_CALL', this.removeVideo);
-    this.webrtc.on('JOIN_ROOM', this.readyToCall);
+    this.webrtc.on('readyToCall', this.readyToCall);
   }
 
   addVideo(video, peer) {
+    debugger
     console.log('video added', peer);
     //  console.log(this.refs.remotes);
     var remotes = ReactDOM.findDOMNode(this.refs.remotes);
