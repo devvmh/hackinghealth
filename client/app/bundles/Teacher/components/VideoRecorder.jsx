@@ -1,26 +1,81 @@
 import React, { PropTypes } from 'react';
-import Dropzone from 'react-dropzone';
+import ReactDOM from 'react-dom'
 import SimpleWebRTC from 'simplewebrtc'
-import WebRtc from './WebRtc'
 
 class VideoRecorder extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      currentlyUploading: false,
       currentlyRecording: false
     }
   }
 
-  onDrop = (acceptedFiles, rejectedFiles) => {
-    if (rejectedFiles.length > 0) {
-      console.error('rejected files:', rejectedFiles)
+  updateIsRecording(newval) {
+    this.setState({ currentlyRecording: !!newval })
+  }
+
+  componentDidMount() {
+    this.webrtc = new SimpleWebRTC({
+      localVideoEl: ReactDOM.findDOMNode(this.refs.local),
+      remoteVideosEl: ReactDOM.findDOMNode(this.refs.remotes),
+      url: this.props.signalmasterUrl,
+      autoRequestMedia: true
+    });
+
+    console.log("webrtc component mounted");
+    this.webrtc.on('videoAdded', this.addVideo);
+    this.webrtc.on('videoRemoved', this.removeVideo);
+    this.webrtc.on('readyToCall', this.readyToCall);
+  }
+
+  addVideo = (video, peer) => {
+    console.log('video added', peer);
+    var remotes = ReactDOM.findDOMNode(this.refs.remotes);
+    console.log(remotes);
+    if (remotes) {
+      var container = document.createElement('div');
+      container.className = 'videoContainer';
+      container.id = 'container_' + this.webrtc.getDomId(peer);
+      container.appendChild(video);
+      // suppress contextmenu
+      video.oncontextmenu = function() {
+        return false;
+      };
+      console.log(container);
+      remotes.appendChild(container);
     }
+  }
 
+  removeVideo = (video, peer) => {
+    console.log('video removed ', peer);
+    var remotes = ReactDOM.findDOMNode(this.refs.remotes);
+    var el = document.getElementById(peer ? 'container_' + this.webrtc.getDomId(peer) : 'localScreenContainer');
+    if (remotes && el) {
+      remotes.removeChild(el);
+    }
+  }
+
+  readyToCall = () => {
+    console.log("joining room:", this.props.roomname)
+    window.rtc_ref = this.webrtc;
+    window.local_recorder = new window.MediaRecorder(window.rtc_ref.webrtc.localStreams[0])
+    this.chunks = []
+    window.local_recorder.ondataavailable = event => {
+      this.chunks.push(event.data)
+    }
+    window.local_recorder.onstop = event => {
+      const blob = new Blob(this.chunks, { 'type' : 'video/webm' });
+      this.chunks = []
+      blob.lastModifiedDate = new Date()
+      blob.name = 'recording.webm'
+      this.postVideoFile(blob)
+    }
+    return this.webrtc.joinRoom(this.props.roomname);
+  }
+
+  postVideoFile = file => {
     const formData = new FormData();
-    formData.append('video[file]', acceptedFiles[0])
-
-    this.setState({ currentlyUploading: true })
+    formData.append('video[file]', file)
 
     fetch('/videos', {
       method: 'POST',
@@ -34,38 +89,36 @@ class VideoRecorder extends React.Component {
       if (!response.ok) throw response
       return response.json()
     }).then(payload => {
-      console.log("success!!!!!")
+      console.log("upload video success!!!!!")
       console.log(payload)
       this.props.updateVideoList()
-      this.setState({ currentlyUploading: false })
     }).catch(error => {
       console.error(error)
-      this.setState({ currentlyUploading: false })
     })
   }
 
-  updateIsRecording(newval) {
-    this.setState({ currentlyRecording: !!newval })
+  startRecording = () => {
+    window.local_recorder.start()
+    this.setState({ currentlyRecording: true })
+  }
+
+  stopRecording = () => {
+    window.local_recorder.stop()
+    this.setState({ currentlyRecording: false })
   }
 
   render() {
     return <div>
-      <WebRtc updateVideoList={this.props.updateVideoList}
-        updateCurrentlyRecording={this.updateCurrentlyRecording}
-        currentlyRecording={this.currentlyRecording}
-        options={{ roomname: this.props.roomname, signalmasterUrl: this.props.signalmasterUrl }}
+      <video className="local"
+        id="localVideo"
+        ref="local"
       />
-      {this.state.currentlyUploading === true ? (
-        <div className="upload-video disabled">
-          <div className="upload-video-text">Video is uploading...</div>
-        </div>
-      ) : (
-        <div className="upload-video">
-          <Dropzone className="dropzone" onDrop={this.onDrop}>
-            <div className="upload-video-text">Click here to upload a video</div>
-          </Dropzone>
-        </div>
-      )}
+      <div onClick={this.startRecording}>Start Recording</div>
+      <div onClick={this.stopRecording}>Stop Recording</div>
+      <div className="remotes"
+        id="remoteVideos"
+        ref="remotes"
+      />
     </div>
   }
 }
