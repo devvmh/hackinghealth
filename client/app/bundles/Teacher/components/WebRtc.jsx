@@ -53,6 +53,7 @@ class WebRtc extends React.Component {
   }
 
   readyToCall() {
+    console.log("joining room:", this.props.options.roomname)
     return this.webrtc.joinRoom(this.props.options.roomname);
   }
 
