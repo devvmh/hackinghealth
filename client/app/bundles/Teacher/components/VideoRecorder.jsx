@@ -19,7 +19,8 @@ class VideoRecorder extends React.Component {
       localVideoEl: ReactDOM.findDOMNode(this.refs.local),
       remoteVideosEl: ReactDOM.findDOMNode(this.refs.remotes),
       url: this.props.signalmasterUrl,
-      autoRequestMedia: true
+      autoRequestMedia: true,
+      autoRemoveVideos: false
     });
 
     console.log("webrtc component mounted");
@@ -50,6 +51,7 @@ class VideoRecorder extends React.Component {
     console.log('video removed ', peer);
     var remotes = ReactDOM.findDOMNode(this.refs.remotes);
     var el = document.getElementById(peer ? 'container_' + this.webrtc.getDomId(peer) : 'localScreenContainer');
+    debugger
     if (remotes && el) {
       remotes.removeChild(el);
     }
