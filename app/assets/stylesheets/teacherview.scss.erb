@@ -11,6 +11,7 @@ body {
 }
 
 .tab-container {
+
     padding: 1em;
     position: fixed;
     background-color: rgba(0, 0, 0, 1);
@@ -22,7 +23,7 @@ body {
 
     .tab {
         cursor: pointer;
-        float: left;
+        display: inline-block;
         margin-right: 1em;
 
         &:hover {
@@ -109,5 +110,14 @@ body {
 .louise {
   display: none;
   width: 100%;
+}
+
+.uploading {
+  color: white;
+  opacity: 0.8;
+  font-weight: bold;
+  font-size: large;
+  position: absolute;
+  bottom: 3em;
 }
 

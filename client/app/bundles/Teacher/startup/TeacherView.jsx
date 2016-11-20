@@ -20,7 +20,8 @@ class TeacherView extends Component {
 
   fetchVideosTimeoutId = null
   fetchVideos = () => {
-    fetch('/videos.json', {
+    // return promise for chaining on this function
+    return fetch('/videos.json', {
       credentials: 'include'
     }).then(response => {
       if (!response.ok) throw response
@@ -54,8 +55,16 @@ class TeacherView extends Component {
     const { tab } = this.state
 
     return <div>
-      <ChatroomView {...tabProps} signalmasterUrl={this.props.signalmasterUrl} updateVideoList={this.fetchVideos} visible={tab === CHATROOM_VIEW} />
-      <ArchiveView {...tabProps} videos={this.state.videos} visible={tab === ARCHIVE_VIEW} />
+      <ChatroomView {...tabProps}
+        switchToArchiveView={e => this.setState({ tab: ARCHIVE_VIEW })}
+        signalmasterUrl={this.props.signalmasterUrl}
+        updateVideoList={this.fetchVideos}
+        visible={tab === CHATROOM_VIEW}
+      />
+      <ArchiveView {...tabProps}
+        videos={this.state.videos}
+        visible={tab === ARCHIVE_VIEW}
+      />
       <div className="tab-container">
         <div className="tab tab-chatroom-view"
           onClick={e => this.setState({ tab: CHATROOM_VIEW })}

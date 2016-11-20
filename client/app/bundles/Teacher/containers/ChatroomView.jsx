@@ -6,6 +6,7 @@ class ChatroomView extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      currentlyUploading: false,
       currentlyRecording: false
     }
   }
@@ -78,6 +79,7 @@ class ChatroomView extends React.Component {
     const formData = new FormData();
     formData.append('video[file]', file)
 
+    this.setState({ currentlyUploading: true })
     fetch('/videos', {
       method: 'POST',
       credentials: 'same-origin',
@@ -93,8 +95,11 @@ class ChatroomView extends React.Component {
       console.log("upload video success!!!!!")
       console.log(payload)
       this.props.updateVideoList()
+      this.props.switchToArchiveView()
+      this.setState({ currentlyUploading: false })
     }).catch(error => {
       console.error(error)
+      this.setState({ currentlyUploading: false })
     })
   }
 
@@ -123,7 +128,11 @@ class ChatroomView extends React.Component {
           </div>
         ) : (
           <div className="record record-start" onClick={this.startRecording}>
-            <img alt="Start Recording" src={this.props.assets['record.svg']} />
+            {this.state.currentlyUploading ? (
+              <div className="uploading">Uploading...</div>
+            ) : (
+              <img alt="Start Recording" src={this.props.assets['record.svg']} />
+            )}
           </div>
         )}
         <div className="remotes"
@@ -139,6 +148,7 @@ ChatroomView.propTypes = {
   assets: PropTypes.objectOf(PropTypes.string),
   name: PropTypes.string,
   signalmasterUrl: PropTypes.string,
+  switchToArchiveView: PropTypes.func,
   updateVideoList: PropTypes.func.isRequired
 };
 
