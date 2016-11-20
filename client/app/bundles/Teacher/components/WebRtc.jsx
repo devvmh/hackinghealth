@@ -13,7 +13,7 @@ class WebRtc extends React.Component {
     this.webrtc = new SimpleWebRTC({
       localVideoEl: ReactDOM.findDOMNode(this.refs.local),
       remoteVideosEl: "",
-      //url : this.props.options.signalmasterUrl
+      url : this.props.options.signalmasterUrl
       autoRequestMedia: true
     });
 
