@@ -1,3 +1,8 @@
+body {
+  background-image: url(<%= asset_path('concrete.png') %>);
+  color: rgba(50,50,50,0.8);
+}
+
 .tab-container {
     padding-bottom: 1em;
 
@@ -17,41 +22,50 @@
   clear: both;
 }
 
-.upload-video {
-    margin: auto;
-    width: 20%;
-    height: 10em;
-    vertical-align: middle;
-    border: 1px solid black;
-
-    &.disabled {
-        background-color: grey;
-    }
-
-    .upload-video-text {
-        text-align: center;
-        margin: auto auto;
-        margin-top: 4.25em;
-    }
-}
-
-.video {
+.container.archive {
+  .video {
     float: left;
     padding: 1em;
+  }
 }
 
+.container.chatroom {
+  position: relative;
 
-body {
-    background-image: url(<%= asset_path('concrete.png') %>);
-    color: rgba(50,50,50,0.8);
-}
-
-
-.local {
+  .local {
     width: 100%;   
-}
+  }
 
-.record {
-  cursor: pointer;
-  display: inline-block;
+  $remote_video_padding: 2em;
+  $record_button_size: 6em;
+  $remote_video_size: 12em;
+
+  .record {
+    cursor: pointer;
+    display: inline-block;
+    position: absolute;
+    top: $remote_video_padding;
+    right: $remote_video_padding;
+    height: $record_button_size;
+    width: $record_button_size;
+  }
+
+  .remotes {
+    position: absolute;
+    top: $remote_video_padding + $record_button_size;
+    right: $remote_video_padding;
+    width: $remote_video_size;
+    height: auto;
+
+    .videoContainer {
+      padding-top: $remote_video_padding;
+      width: $remote_video_size;
+      height: $remote_video_size;
+
+      video {
+        width: $remote_video_size !important;
+        height: $remote_video_size !important;
+      }
+    }
+  }
 }

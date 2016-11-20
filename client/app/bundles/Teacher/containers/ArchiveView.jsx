@@ -6,7 +6,7 @@ class ArchiveView extends React.Component {
     const { name, visible } = this.props;
 
     return (
-      <div className="container" style={{ display: visible ? 'block' : 'none' }}>
+      <div className="container archive" style={{ display: visible ? 'block' : 'none' }}>
         <h3>
           {name}'s videos
         </h3>

@@ -107,19 +107,19 @@ class ChatroomView extends React.Component {
   render() {
     return (
       <div className="container chatroom" style={{ display: this.props.visible ? 'block' : 'none' }}>
-        {this.state.currentlyRecording ? (
-          <div className="record record-stop" onClick={this.stopRecording}>
-            <img height="100" width="100" alt="Stop Recording" src={this.props.assets['stop.svg']} />
-          </div>
-        ) : (
-          <div className="record record-start" onClick={this.startRecording}>
-            <img height="100" width="100" alt="Start Recording" src={this.props.assets['record.svg']} />
-          </div>
-        )}
         <video className="local"
           id="localVideo"
           ref="local"
         />
+        {this.state.currentlyRecording ? (
+          <div className="record record-stop" onClick={this.stopRecording}>
+            <img alt="Stop Recording" src={this.props.assets['stop.svg']} />
+          </div>
+        ) : (
+          <div className="record record-start" onClick={this.startRecording}>
+            <img alt="Start Recording" src={this.props.assets['record.svg']} />
+          </div>
+        )}
         <div className="remotes"
           id="remoteVideos"
           ref="remotes"
