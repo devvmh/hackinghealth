@@ -2,16 +2,20 @@ default: &default
   adapter: <%= ENV['DB'] %>
   pool: 5
   timeout: 5000
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  port: <%= ENV['DB_PORT'] %>
+  host: <%= ENV['DB_HOST'] %>
 
 development:
   <<: *default
-  database: hackinghealth_development
+  database: <%= ENV.fetch('DB_NAME', 'hackinghealth_development') %>
 
 production:
   <<: *default
-  database: hackinghealth_production
+  database: <%= ENV.fetch('DB_NAME', 'hackinghealth_production') %>
 
 test:
   <<: *default
-  database: hackinghealth_test
+  database: <%= ENV.fetch('DB_NAME', 'hackinghealth_test') %>
 
