@@ -18,8 +18,8 @@ class WebRtc extends React.Component {
     });
 
     console.log("webrtc component mounted");
-    this.webrtc.on('JOIN_CALL', this.addVideo);
-    this.webrtc.on('LEAVE_CALL', this.removeVideo);
+    this.webrtc.on('videoAdded', this.addVideo);
+    this.webrtc.on('videoRemoved', this.removeVideo);
     this.webrtc.on('readyToCall', this.readyToCall);
   }
 
