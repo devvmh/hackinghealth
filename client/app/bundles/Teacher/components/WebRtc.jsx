@@ -2,13 +2,6 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 class WebRtc extends React.Component {
-  constructor(props) {
-    super(props);
-    this.addVideo = this.addVideo.bind(this);
-    this.removeVideo = this.removeVideo.bind(this);
-    this.readyToCall = this.readyToCall.bind(this);
-  }
-
   componentDidMount() {
     this.webrtc = new SimpleWebRTC({
       localVideoEl: ReactDOM.findDOMNode(this.refs.local),
@@ -16,7 +9,6 @@ class WebRtc extends React.Component {
       url: this.props.options.signalmasterUrl,
       autoRequestMedia: true
     });
-    window.rtc_ref = this.webrtc;
 
     console.log("webrtc component mounted");
     this.webrtc.on('videoAdded', this.addVideo);
@@ -24,7 +16,7 @@ class WebRtc extends React.Component {
     this.webrtc.on('readyToCall', this.readyToCall);
   }
 
-  addVideo(video, peer) {
+  addVideo = (video, peer) => {
     console.log('video added', peer);
     var remotes = ReactDOM.findDOMNode(this.refs.remotes);
     console.log(remotes);
@@ -42,7 +34,7 @@ class WebRtc extends React.Component {
     }
   }
 
-  removeVideo(video, peer) {
+  removeVideo = (video, peer) => {
     console.log('video removed ', peer);
     var remotes = ReactDOM.findDOMNode(this.refs.remotes);
     var el = document.getElementById(peer ? 'container_' + this.webrtc.getDomId(peer) : 'localScreenContainer');
@@ -51,8 +43,37 @@ class WebRtc extends React.Component {
     }
   }
 
-  readyToCall() {
+  readyToCall = () => {
     console.log("joining room:", this.props.options.roomname)
+    window.rtc_ref = this.webrtc;
+    window.local_recorder = new window.MediaRecorder(window.rtc_ref.webrtc.localStreams[0])
+    window.local_recorder.ondataavailable = event => {
+      const blob = event.data
+      blob.lastModifiedDate = new Date()
+      blob.name = 'recording.webm'
+
+      const formData = new FormData();
+      formData.append('video[file]', event.data)
+
+      fetch('/videos', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: {
+          Accept: 'application/json',
+          'X-CSRF-Token': $('meta[name="csrf-token"]').get(0).content
+        },
+        body: formData
+      }).then(response => {
+        if (!response.ok) throw response
+        return response.json()
+      }).then(payload => {
+        console.log("upload video success!!!!!")
+        console.log(payload)
+        this.props.updateVideoList()
+      }).catch(error => {
+        console.error(error)
+      })
+    }
     return this.webrtc.joinRoom(this.props.options.roomname);
   }
 
@@ -64,12 +85,22 @@ class WebRtc extends React.Component {
     console.log("disconnected");
   }
 
+  startRecording = () => {
+    window.local_recorder.start()
+  }
+
+  stopRecording = () => {
+    window.local_recorder.stop()
+  }
+
   render() {
     return <div>
       <video className="local"
-        id = "localVideo"
-        ref = "local"
+        id="localVideo"
+        ref="local"
       />
+      <div onClick={this.startRecording}>Start Recording</div>
+      <div onClick={this.stopRecording}>Stop Recording</div>
       <div className="remotes"
         id="remoteVideos"
         ref="remotes"

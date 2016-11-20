@@ -46,7 +46,9 @@ class VideoRecorder extends React.Component {
 
   render() {
     return <div>
-      <WebRtc options={{ roomname: this.props.roomname, signalmasterUrl: this.props.signalmasterUrl }} />
+      <WebRtc updateVideoList={this.props.updateVideoList}
+        options={{ roomname: this.props.roomname, signalmasterUrl: this.props.signalmasterUrl }}
+      />
       {this.state.currentlyUploading === true ? (
         <div className="upload-video disabled">
           <div className="upload-video-text">Video is uploading...</div>
