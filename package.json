@@ -2,11 +2,11 @@
   "name": "react-webpack-rails-tutorial",
   "version": "0.0.1",
   "engines": {
-    "node": "5.10.0",
-    "npm": "3.5.0"
+    "node": "7.1.0",
+    "npm": "3.10.9"
   },
   "scripts": {
-    "postinstall": "cd client && npm install",
+    "postinstall": "cd client && npm install && cd ../signal-server && npm install",
     "rails-server": "echo 'visit http://localhost:3000/teacher' && foreman start -f Procfile.dev",
     "test": "rspec"
   }

@@ -1,7 +1,10 @@
 source 'https://rubygems.org'
 
+ruby '2.3.2'
+
 gem 'rails'
-gem 'sqlite3'
+gem 'sqlite3', group: :development
+gem 'pg'
 gem 'puma'
 
 gem 'aws-sdk'
@@ -14,6 +17,7 @@ gem 'react_on_rails'
 gem 'redis'
 gem 'sass-rails'
 gem 'turbolinks'
+gem 'uglifier'
 
 group :development, :test do
   gem 'pry-byebug'
