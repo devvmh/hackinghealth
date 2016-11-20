@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails'
 gem 'sqlite3'
+gem 'pg'
 gem 'puma'
 
 gem 'aws-sdk'
