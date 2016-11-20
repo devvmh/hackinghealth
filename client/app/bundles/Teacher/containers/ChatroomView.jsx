@@ -128,10 +128,11 @@ class ChatroomView extends React.Component {
           </div>
         ) : (
           <div className="record record-start" onClick={this.startRecording}>
-            <img alt="Start Recording" src={this.props.assets['record.svg']} />
             {this.state.currentlyUploading ? (
               <div className="uploading">Uploading...</div>
-            ) : null }
+            ) : (
+              <img alt="Start Recording" src={this.props.assets['record.svg']} />
+            )}
           </div>
         )}
         <div className="remotes"
