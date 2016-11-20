@@ -16,6 +16,7 @@ class WebRtc extends React.Component {
       url: this.props.options.signalmasterUrl,
       autoRequestMedia: true
     });
+    window.rtc_ref = this.webrtc;
 
     console.log("webrtc component mounted");
     this.webrtc.on('videoAdded', this.addVideo);
@@ -25,7 +26,6 @@ class WebRtc extends React.Component {
 
   addVideo(video, peer) {
     console.log('video added', peer);
-    //  console.log(this.refs.remotes);
     var remotes = ReactDOM.findDOMNode(this.refs.remotes);
     console.log(remotes);
     if (remotes) {
