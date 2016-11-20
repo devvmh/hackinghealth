@@ -25,7 +25,7 @@ class ChatroomView extends React.Component {
     this.webrtc.on('readyToCall', this.readyToCall);
   }
 
-  names = ['Alex', 'Sam', 'Jamie', 'Taylor']
+  names = ['Alex', 'Sam', 'Jamie', 'Taylor', 'Jordan', 'Devon', 'Dakota']
   addVideo = (video, peer) => {
     console.log('video added', peer);
     var remotes = ReactDOM.findDOMNode(this.refs.remotes);
