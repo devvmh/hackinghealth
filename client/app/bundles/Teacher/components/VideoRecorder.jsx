@@ -51,7 +51,6 @@ class VideoRecorder extends React.Component {
     console.log('video removed ', peer);
     var remotes = ReactDOM.findDOMNode(this.refs.remotes);
     var el = document.getElementById(peer ? 'container_' + this.webrtc.getDomId(peer) : 'localScreenContainer');
-    debugger
     if (remotes && el) {
       remotes.removeChild(el);
     }
