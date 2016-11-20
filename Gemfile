@@ -15,6 +15,7 @@ gem 'react_on_rails'
 gem 'redis'
 gem 'sass-rails'
 gem 'turbolinks'
+gem 'uglifier'
 
 group :development, :test do
   gem 'pry-byebug'
