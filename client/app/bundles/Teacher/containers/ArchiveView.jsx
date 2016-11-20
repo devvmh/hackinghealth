@@ -7,10 +7,9 @@ class ArchiveView extends React.Component {
 
     return (
       <div className="container archive" style={{ display: visible ? 'block' : 'none' }}>
-        <h3>
+        <div className="archive-title">
           {name}'s videos
-        </h3>
-        <hr />
+        </div>
         {this.props.videos.map((video, index) => {
           return <Video key={index} video={video} />
         })}
