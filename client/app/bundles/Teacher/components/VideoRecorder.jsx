@@ -111,12 +111,19 @@ class VideoRecorder extends React.Component {
 
   render() {
     return <div>
+      {this.state.currentlyRecording ? (
+        <div className="record record-stop" onClick={this.stopRecording}>
+          <img height="100" width="100" alt="Stop Recording" src={this.props.assets['stop.svg']} />
+        </div>
+      ) : (
+        <div className="record record-start" onClick={this.startRecording}>
+          <img height="100" width="100" alt="Start Recording" src={this.props.assets['record.svg']} />
+        </div>
+      )}
       <video className="local"
         id="localVideo"
         ref="local"
       />
-      <div onClick={this.startRecording}>Start Recording</div>
-      <div onClick={this.stopRecording}>Stop Recording</div>
       <div className="remotes"
         id="remoteVideos"
         ref="remotes"
@@ -126,6 +133,7 @@ class VideoRecorder extends React.Component {
 }
 
 VideoRecorder.propTypes = {
+  assets: PropTypes.objectOf(PropTypes.string),
   roomname: PropTypes.string,
   signalmasterUrl: PropTypes.string,
   updateVideoList: PropTypes.func.isRequired

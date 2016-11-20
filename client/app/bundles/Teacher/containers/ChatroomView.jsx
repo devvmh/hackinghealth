@@ -13,16 +13,13 @@ class ChatroomView extends React.Component {
 
     return (
       <div className="container chatroom" style={{ display: visible ? 'block' : 'none' }}>
-        <h3>
-          Hello, {name}!
-        </h3>
-        <hr />
         <div className="left-col">
           <div className="messages" />
           <div className="send-text" />
         </div>
         <div className="right-col">
           <VideoRecorder roomname={this.props.name}
+            assets={this.props.assets}
             signalmasterUrl={this.props.signalmasterUrl}
             updateVideoList={this.props.updateVideoList}
           />

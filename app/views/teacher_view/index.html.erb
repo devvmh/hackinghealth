@@ -1,2 +1,7 @@
-<%= react_component("TeacherView", props: @teacherview_props, prerender: false) %>
+<%= react_component("TeacherView", prerender: false, props: @teacherview_props.merge(
+  assets: {
+    'record.svg' => asset_path('record.svg'),
+    'stop.svg' => asset_path('stop.svg')
+  }
+)) %>
 
