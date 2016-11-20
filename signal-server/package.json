@@ -2,17 +2,18 @@
   "name": "signal-server",
   "version": "0.0.1",
   "engines": {
-    "node": "5.10.0",
-    "npm": "3.5.0"
+    "node": "7.1.0",
+    "npm": "3.10.9"
   },
   "scripts": {
-    "serve": "node index.js"
+    "start": "SIGNAL_SERVER_PORT=$PORT node index.js"
   },
   "cacheDirectories": [
     "node_modules"
   ],
   "dependencies": {
     "redux": "^3.6.0",
+    "signal-master": "^1.0.1",
     "socket.io": "^1.5.1"
   },
   "devDependencies": {}
